@@ -9,9 +9,6 @@ package:
 source:
   - url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
     sha256: 0c3241d5147b0da752f109eff23917c7f0e7e590d25913bcb0dea226d9649c35
-  # https://github.com/zensical/zensical/issues/5
-  - url: https://raw.githubusercontent.com/zensical/zensical/refs/tags/${{ version }}/LICENSE.md
-    sha256: 8cd958cc00e3b8e072b25c0754faa4ac604443fb78ea69d8ea40e3a7e6188d91
   # https://github.com/zensical/ui/issues/1
   - url: https://raw.githubusercontent.com/zensical/ui/refs/heads/master/LICENSE
     sha256: 58e749c581576a39a77e51af3f45bcfb93ce0fc3a983faa4b3fe7416bdfc14d4
