@@ -1,6 +1,6 @@
 context:
   name: zensical
-  version: "0.0.4"
+  version: "0.0.5"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/${{ name }}-${{ version }}.tar.gz
-    sha256: 0c3241d5147b0da752f109eff23917c7f0e7e590d25913bcb0dea226d9649c35
+    sha256: e64ac31897602a6c4ab1d58d76386e0abc428539cbb2f7432111b6f8afa8f19e
   # https://github.com/zensical/ui/issues/1
   - url: https://raw.githubusercontent.com/zensical/ui/refs/heads/master/LICENSE
     sha256: 58e749c581576a39a77e51af3f45bcfb93ce0fc3a983faa4b3fe7416bdfc14d4
@@ -64,6 +64,7 @@ requirements:
     - pygments >=2.16
     - pymdown-extensions >=10.15
     - pyyaml >=6.0.2
+    - tomli >=2.0
   ignore_run_exports:
     from_package:
       - cross-python_${{ target_platform }}
@@ -71,16 +72,14 @@ requirements:
 tests:
   - python:
       imports:
-      - zensical
+        - zensical
       pip_check: true
       python_version: ${{ python_min }}.*
   - script:
       content:
         - if: win
           then: abi3audit %PREFIX%/Lib/site-packages/zensical/zensical.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
-        - if: not win
-          then:
-            # Need to set SP_DIR because of https://github.com/prefix-dev/rattler-build/issues/1733
+          else:
             - export SP_DIR=$(python -c "import site; print(site.getsitepackages()[0])")
             - abi3audit $SP_DIR/zensical/zensical.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
     requirements:
